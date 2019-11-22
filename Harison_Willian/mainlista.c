@@ -54,16 +54,22 @@ int main(int argc, char *argv[])
 	
 	printf("\n");
 
-	//bubbleSort(&lista);
+	//bubbleSort(&lista); // FUNCIONOU
 	
-	shellSort(&lista, 1000);
+	//shellSort(&lista, 1000);// FUNCIONOU
 
 	//Executa a funcao times para registro dos dados na estrutura time (estrutura tms)
-    	tt = times(&time);
-	printf("Clock = %f\n", (float)tt);	
-    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
+    	//tt = times(&time);
+	//printf("Clock = %f\n", (float)tt);	
+    	//printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
 	
-	//mergeSort(&lista, 1000);
+	//mergeSort(&lista, 1000);//  NÃO FUNCIONOU
+
+	//insertSort(&lista);// FUNCIONOU
+	
+	//quickSort(&lista, 0, 999); // NÃO FUNCIONOU
+	
+	selectionSort(&lista);// FUNCIONOU
 	
 	printf("\nIMPRIMINDO LISTA ORDENADA\n");
 	
