@@ -7,10 +7,11 @@
 #include"listaestatica.c"
 
 //void bubbleSort(tipoLista *lst);
-void shellSort(tipoLista *lst, int tamanho);
+//void shellSort(tipoLista *lst, int tamanho);
 //void mergeSort(tipoLista *lst, int tamanho);
 //void insertSort(tipoLista *lst);
-//void quickSort(tipoLista *lst);
+int dividir(tipoLista *lst, int esq, int dir);
+void quickSort(tipoLista *lst, int esq, int dir);
 //void selectionSort(tipoLista *ls);
 
 /*void bubbleSort(tipoLista *lst)
@@ -36,7 +37,7 @@ void shellSort(tipoLista *lst, int tamanho);
 	}
 }
 */
-void shellSort(tipoLista *lst, int tam)
+/*void shellSort(tipoLista *lst, int tam)
 {
 	int i, salto, frente, tras, aux;
 
@@ -70,7 +71,7 @@ void shellSort(tipoLista *lst, int tam)
  			salto = salto/2;
  		}
 	}
-}
+}*/
 /*void mergeSort(tipoLista *lst, int tamanho)
 {
 	int i, meio, dir, esq, aux[tamanho], k;
@@ -108,7 +109,7 @@ void shellSort(tipoLista *lst, int tam)
 			esq++;
 		}
 	}
-}
+}*/
 /*void insertSort(tipoLista *lst)
 {
 	int i, j, aux;
@@ -131,44 +132,47 @@ void shellSort(tipoLista *lst, int tam)
 			lst->vet[j+1] = aux;
 		}
 	}
-}
-void quickSort(tipoLista *lst, int ini, int fim)
+}*/
+int dividir(tipoLista *lst, int esq, int dir)
 {
-	int i, f, meio, pivo, aux;
+	int aux, i, cont=esq;
+	
+	for(i=esq+1; i <= dir; i++)
+	{
+		if(lst->vet[i] < lst->vet[esq])
+		{
+			cont++;
+			aux = lst->vet[i];
+			lst->vet[i] = lst->vet[cont];
+			lst->vet[cont] = aux;
+		}
+		
+	}
+	
+	aux = lst->vet[esq];
+	lst->vet[esq] = lst->vet[cont];
+	lst->vet[cont] = aux;
+	
+	return cont;
+}			
+void quickSort(tipoLista *lst, int esq, int dir)
+{
+	int pos;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
 	else
 	{
-		meio = (ini + fim)/2;
-		pivo = lst->vet[meio];
-	
-		i = ini;
-		f = fim;
-	
-		while (i < f)
+		if(esq < dir)
 		{
-			while ( lst->vet[i] < pivo )
-				i++;
-			while ( lst->vet[f] > pivo )
-				f--;
-			
-			if( i < f)
-			{
-				aux = lst->vet[i];
-				lst->vet[i] = lst->vet[f];
-				lst->vet[f] = aux;
-			}
-			
-			if( f > inicio)
-				quickSort(lst, inicio, f);
-			
-			if( i < fim)
-				quickSorte(lst, i, fim);
+			pos = dividir(lst, esq, dir);
+			quickSort(lst, esq, pos-1);
+			quickSort(lst, pos+1, dir);
 		}
 	}
+			
 }
-void selectionSort(tipoLista *lst)
+/*void selectionSort(tipoLista *lst)
 {
 	int menor,aux, i, j;
 
