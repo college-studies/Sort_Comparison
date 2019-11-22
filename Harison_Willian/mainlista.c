@@ -67,9 +67,9 @@ int main(int argc, char *argv[])
 
 	//insertSort(&lista);// FUNCIONOU
 	
-	//quickSort(&lista, 0, 999); // NÃO FUNCIONOU
+	quickSort(&lista, 0, 999); // FUNCIONOU
 	
-	selectionSort(&lista);// FUNCIONOU
+	//selectionSort(&lista);// FUNCIONOU
 	
 	printf("\nIMPRIMINDO LISTA ORDENADA\n");
 	
