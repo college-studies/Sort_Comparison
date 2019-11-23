@@ -3,15 +3,17 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 #include"listaestatica.c"
 
 //void bubbleSort(tipoLista *lst);
 //void shellSort(tipoLista *lst, int tamanho);
-//void mergeSort(tipoLista *lst, int tamanho);
+void mergeSort(tipoLista *lst, int inicio, int fim);
+void merge(tipoLista *lst, int inicio, int meio, int fim);
 //void insertSort(tipoLista *lst);
-int dividir(tipoLista *lst, int esq, int dir);
-void quickSort(tipoLista *lst, int esq, int dir);
+//int dividir(tipoLista *lst, int esq, int dir);
+//void quickSort(tipoLista *lst, int esq, int dir);
 //void selectionSort(tipoLista *ls);
 
 /*void bubbleSort(tipoLista *lst)
@@ -72,44 +74,63 @@ void quickSort(tipoLista *lst, int esq, int dir);
  		}
 	}
 }*/
-/*void mergeSort(tipoLista *lst, int tamanho)
+void mergeSort(tipoLista *lst, int inicio, int fim)
 {
-	int i, meio, dir, esq, aux[tamanho], k;
+	int meio;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
 	else
 	{
-		for(i=0; i < lst->tam; i++)
-			aux[i]=lst->vet[i];
-	
-		esq = 0;
-		meio = tamanho/2;
-		dir = meio+1;
-		k = 0;
-	
-		while(esq <= meio && dir<=tamanho)
+		if(inicio < fim)
 		{
-			if(aux[esq] < aux[dir])
+			meio = floor( (inicio+fim)/2 );
+			mergeSort(lst, inicio, meio);
+			mergeSort(lst, meio+1, fim);
+			merge(lst, inicio, meio, fim);
+		}
+	}
+}
+void merge(tipoLista *lst, int inicio, int meio, int fim)
+{
+	int *temp, p1, p2, tamanho, i , j, k;
+	int fim1=0, fim2=0;
+	
+	tamanho = fim-inicio+1;
+	
+	p1 = inicio;
+	p2 = meio+1;
+	
+	temp = (int*) malloc(tamanho*sizeof(int));
+	
+	if(temp != NULL)
+	{
+		for(i=0; i < tamanho; i++)
+		{
+			if(!fim1 && !fim2)
 			{
-				lst->vet[k] = aux[esq];
-				esq++;
+				if(lst->vet[p1] < lst->vet[p2])
+					temp[i] = lst->vet[p1++];
+				else
+					temp[i] = lst->vet[p2++];
+				if(p1 > meio)
+					fim1 = 1;
+				if(p2 > fim)
+					fim2 = 1;
 			}
 			else
 			{
-				lst->vet[k] = aux[dir];
-				dir++;
+				if(!fim1)
+					temp[i] = lst->vet[p1++];
+				else
+					temp[i] = lst->vet[p2++];
 			}
-			k++;
 		}
-		while(esq <= meio)
-		{
-			lst->vet[k] = aux[esq];
-			k++;
-			esq++;
-		}
+		for(j=0, k = inicio; j < tamanho; j++, k++)
+			lst->vet[k] = temp[j];
 	}
-}*/
+	free(temp);
+}		
 /*void insertSort(tipoLista *lst)
 {
 	int i, j, aux;
@@ -133,7 +154,7 @@ void quickSort(tipoLista *lst, int esq, int dir);
 		}
 	}
 }*/
-int dividir(tipoLista *lst, int esq, int dir)
+/*int dividir(tipoLista *lst, int esq, int dir)
 {
 	int aux, i, cont=esq;
 	
@@ -171,7 +192,7 @@ void quickSort(tipoLista *lst, int esq, int dir)
 		}
 	}
 			
-}
+}*/
 /*void selectionSort(tipoLista *lst)
 {
 	int menor,aux, i, j;
