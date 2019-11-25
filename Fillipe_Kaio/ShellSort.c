@@ -5,25 +5,59 @@
 #include<stdlib.h>
 
 #include "staticList.c"
+#include "randomValues.c"
 
-void shellSort(list *ls)
+int shellSort(list *ls);
+
+int main()
+{
+    list ls;
+    int i;
+
+    runList(&ls,1000);
+    getRandom(&ls);
+    for(i=0;i<ls.size;i++)
+    {
+       printf("%d\n",ls.array[i]);
+    }
+
+    printf("\n");
+    printf("\nTeste\n");
+    
+    shellSort(&ls);
+    for(i=0;i<ls.size;i++)
+    {
+       printf("%d\n",ls.array[i]);
+    }    
+
+
+
+    return 0;
+}
+
+
+int shellSort(list *ls)
 {
     if(ls->array!=NULL)
     {
         int i, j, k, valueAux, hop, count = 0;
-        int flag; 
-
-        hop = (ls->size/2);
-        if (hop % 2 == 0)
-            hop ++;
         
-        while (hop >= 1)
+        for (hop = ls->size/2; hop > 0; hop /=2)
         {
-            for (i = 0, j = hop; j < ls->size; i++, j++)
+            for (i = hop; i < ls->size; i++)
             {
-                if (ls->array[i] > ls->array[j])
+                valueAux = ls->array[i];
+
+                for (j = i; j >= hop && ls->array[j - hop] > valueAux; j -= hop)
                 {
-                    valueAux = ls->array[i];
+                    ls->array[j] = ls->array[j - hop];
+                    count ++;
+                }   
+                    ls->array[j] = valueAux;
+
+                /*if (ls->array[i] > ls->array[j])
+                {
+                    
                     ls->array[i] = ls->array[j];
                     ls->array[j] = valueAux;
                     flag = 1;
@@ -43,15 +77,13 @@ void shellSort(list *ls)
                             count ++;
                         }
                     }
-                }
+                }*/
                             
             }
-            hop = hop/2;
-            if (hop % 2 == 0)
-                hop ++;
         }
         
     }
+    return 0;
 }
 
 
