@@ -9,44 +9,45 @@ struct lista
 	int frente;
 	int tras;
 	int tam;
+	int contador;
 };
 typedef struct lista tipoLista;
-void inicializaLista(tipoLista *lst);
-int listaCheia(tipoLista lst);
-int listaVazia(tipoLista lst);
+void inicializaLista(tipoLista *lst, int tamanho);
+int listaCheia(tipoLista *lst);
+int listaVazia(tipoLista *lst);
 void insereFim(tipoLista *lst, int valor);
-void insereInicio(tipoLista *lst, int valor);
-void inserePosicao(tipoLista *lst, int valor, int posicao);
+//void insereInicio(tipoLista *lst, int valor);
+//void inserePosicao(tipoLista *lst, int valor, int posicao);
 void imprime(tipoLista *lst);
-int removerFim(tipoLista *lst);
+/*int removerFim(tipoLista *lst);
 int removerInicio(tipoLista *lst);
-int removerPosicao(tipoLista *lst, int posicao);
+int removerPosicao(tipoLista *lst, int posicao);*/
 
 
 void inicializaLista(tipoLista *lst, int tamanho)
 {
-	lst-tam=tamanho;
+	lst->tam=tamanho;
 	lst->frente=0;
 	lst->tras=-1;
 	lst->vet=(int*) malloc( tamanho*sizeof(int) );
 }
-int listaCheia(tipoLista lst)
+int listaCheia(tipoLista *lst)
 {
-	if(lst.tras == lst->tam)
+	if(lst->tras == lst->tam)
 		return 1;
 	else
 		return 0;
 }
-int listaVazia(tipoLista lst)
+int listaVazia(tipoLista *lst)
 {
-	if(lst.frente > lst.tras)
+	if(lst->frente > lst->tras)
 		return 1;
 	else
 		return 0;
 }
 void insereFim(tipoLista *lst, int valor)
 {
-	if(listaCheia(*lst))
+	if(listaCheia(lst))
 		printf("\nFILA CHEIA\n");
 	else
 	{
@@ -57,7 +58,7 @@ void insereFim(tipoLista *lst, int valor)
 void imprime(tipoLista *lst)
 {
 	int i;
-	if(listaVazia(*lst))
+	if(listaVazia(lst))
 		printf("\nFILA VAZIA\n");
 	else
 	{
@@ -65,7 +66,7 @@ void imprime(tipoLista *lst)
 			printf("%d\t", lst->vet[i]);
 	}
 }
-void insereInicio(tipoLista *lst, int valor)
+/*void insereInicio(tipoLista *lst, int valor)
 {
 	int i;
 	if(listaCheia(*lst))
@@ -152,6 +153,6 @@ int removerPosicao(tipoLista *lst, int posicao)
 
 		return aux;
 	}
-}	
+}*/	
 
 #endif			
