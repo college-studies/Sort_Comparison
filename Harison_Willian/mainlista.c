@@ -22,22 +22,25 @@ int main(int argc, char *argv[])
     	int tics_per_second; //Variavel que irah guardar os ciclos de clock por segundo do sistema
     	//Pergunta ao SO sobre os ciclos de clock
     	tics_per_second = sysconf(_SC_CLK_TCK);
-
+	
 
 	tipoLista lista;
 	FILE *arquivo;
-	int num;
+	int num, qtdTroca = 0;
 	
-	if( argc !=2 )
+	lista.contador = 0;
+	
+	/*if( argc !=2 )
 	{
 		printf("FALHA NA QUANTIDADE DE ARGUMENTOS\n");
 		return 0;
 	}
 	else
-	{
-		inicializaLista(&lista, 1000);
+	{*/
+		inicializaLista(&lista, 10);
 		
-		arquivo = fopen ("1000-arq1.txt", "r");
+		arquivo = fopen ("10-arq1.txt", "r");
+		//arquivo = fopen (argv[1], "r");
 		if( arquivo == NULL)
 		{
 			printf("IMPOSSIVEL ABRIR O ARQUIVO");
@@ -45,38 +48,56 @@ int main(int argc, char *argv[])
 		}
 		while(EOF != fscanf(arquivo, "%d", &num) )
 			insereFim(&lista, num);
-	}
+	//}
 			
 	
-	printf("\nimprimindo a lista\n");
+	//printf("\nimprimindo a lista\n");
 	
-	imprime(&lista);
+	//imprime(&lista);
 	
-	printf("\n");
+	//printf("\n");
 
-	//bubbleSort(&lista); // FUNCIONOU
+	/*qtdTroca = bubbleSort(&lista); // contador funcionando
+	tt = times(&time);
+	printf("Clock = %f\n", (float)tt);	
+    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
-	//shellSort(&lista, 1000);// FUNCIONOU
+	/*qtdTroca = shellSort(&lista, 1000); // contador funcionando
 
-	//Executa a funcao times para registro dos dados na estrutura time (estrutura tms)
-    	//tt = times(&time);
-	//printf("Clock = %f\n", (float)tt);	
-    	//printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
+    	tt = times(&time);
+	printf("Clock = %f\n", (float)tt);	
+    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
-	//mergeSort(&lista, 1000);//  NÃO FUNCIONOU
-
-	//insertSort(&lista);// FUNCIONOU
 	
-	quickSort(&lista, 0, 999); // FUNCIONOU
+	qtdTroca = mergeSort(&lista, 0, 10);
+	tt = times(&time);
+	printf("Clock = %f\n", (float)tt);	
+    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
 	
-	//selectionSort(&lista);// FUNCIONOU
+	/*qtdTroca = insertSort(&lista); // contador funcionando
+	tt = times(&time);
+	printf("Clock = %f\n", (float)tt);	
+    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
+	
+	/*quickSort(&lista, 0, 1000); // contador funcionou
+	tt = times(&time);
+	printf("Clock = %f\n", (float)tt);	
+    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
+	
+	/*qtdTroca = selectionSort(&lista); // contador funcionou
+	tt = times(&time);
+	printf("Clock = %f\n", (float)tt);	
+    	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
 	printf("\nIMPRIMINDO LISTA ORDENADA\n");
 	
-	imprime(&lista);
+	imprime(&lista);	
 	
 	printf("\n");
 	
+	printf("QUANTIDADE DE TROCA: %d\n", qtdTroca );
+	
+	//printf("QUANTIDADE DE TROCA: %d\n", lista.contador ); // MOSTRAR NÚMERO DE TROCAS DO QUICKSORT
 	
 	return 1;
 }	
