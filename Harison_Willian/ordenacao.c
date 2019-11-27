@@ -7,18 +7,19 @@
 
 #include"listaestatica.c"
 
-//void bubbleSort(tipoLista *lst);
-//void shellSort(tipoLista *lst, int tamanho);
-void mergeSort(tipoLista *lst, int inicio, int fim);
-void merge(tipoLista *lst, int inicio, int meio, int fim);
-//void insertSort(tipoLista *lst);
-//int dividir(tipoLista *lst, int esq, int dir);
-//void quickSort(tipoLista *lst, int esq, int dir);
-//void selectionSort(tipoLista *ls);
+int bubbleSort(tipoLista *lst);
+int shellSort(tipoLista *lst, int tamanho);
+int mergeSort(tipoLista *lst, int inicio, int fim);
+int merge(tipoLista *lst, int inicio, int meio, int fim);
+int insertSort(tipoLista *lst);
+int dividir(tipoLista *lst, int esq, int dir);
+void quickSort(tipoLista *lst, int esq, int dir);
+int selectionSort(tipoLista *ls);
 
-/*void bubbleSort(tipoLista *lst)
+int bubbleSort(tipoLista *lst)
 {
 	int i, contador, aux;
+	long int cont = 0;
 	
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
@@ -33,15 +34,16 @@ void merge(tipoLista *lst, int inicio, int meio, int fim);
 					aux=lst->vet[i];
 					lst->vet[i]=lst->vet[i+1];
 					lst->vet[i+1]=aux;
+					cont++;
 				}
 			}
-		}
+		}	
 	}
+	return cont;
 }
-*/
-/*void shellSort(tipoLista *lst, int tam)
+int shellSort(tipoLista *lst, int tam)
 {
-	int i, salto, frente, tras, aux;
+	int i, salto, frente, tras, aux, cont=0;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
@@ -67,16 +69,18 @@ void merge(tipoLista *lst, int inicio, int meio, int fim);
 						lst->vet[tras] = lst->vet[frente];
 						lst->vet[frente] = aux;
 						tras = tras - salto;
+						cont++;
  					}
  				}
  			}
  			salto = salto/2;
  		}
 	}
-}*/
-void mergeSort(tipoLista *lst, int inicio, int fim)
+	return cont;
+}
+int mergeSort(tipoLista *lst, int inicio, int fim)
 {
-	int meio, troca;
+	int meio, troca = 0;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
@@ -87,14 +91,15 @@ void mergeSort(tipoLista *lst, int inicio, int fim)
 			meio = floor( (inicio+fim)/2 );
 			mergeSort(lst, inicio, meio);
 			mergeSort(lst, meio+1, fim);
-			merge(lst, inicio, meio, fim);
+			troca = troca + merge(lst, inicio, meio, fim);
 		}
 	}
+	return troca;
 }
-void merge(tipoLista *lst, int inicio, int meio, int fim)
+int merge(tipoLista *lst, int inicio, int meio, int fim)
 {
 	int *temp, p1, p2, tamanho, i , j, k;
-	int fim1=0, fim2=0, cont=1;
+	int fim1=0, fim2=0, cont=0;
 	
 	tamanho = fim-inicio+1;
 	
@@ -112,35 +117,42 @@ void merge(tipoLista *lst, int inicio, int meio, int fim)
 				if(lst->vet[p1] < lst->vet[p2])
 				{
 					temp[i] = lst->vet[p1++];
-					cont++;
+					
 				}
 				else
 				{
 					temp[i] = lst->vet[p2++];
-					cont++;
+					
 				}
 				if(p1 > meio)
 					fim1 = 1;
 				if(p2 > fim)
 					fim2 = 1;
+				
 			}
 			else
 			{
 				if(!fim1)
+				{
 					temp[i] = lst->vet[p1++];
+					
+				}
 				else
+				{
 					temp[i] = lst->vet[p2++];
+					
+				}
 			}
-		}
+		}		
 		for(j=0, k = inicio; j < tamanho; j++, k++)
 			lst->vet[k] = temp[j];
 	}
-	printf("QUANTIDADE DE TROCAS: %d\n", cont);
+	return cont;
 	free(temp);
 }		
-/*void insertSort(tipoLista *lst)
+int insertSort(tipoLista *lst)
 {
-	int i, j, aux;
+	int i, j, aux, cont = 0;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
@@ -155,16 +167,19 @@ void merge(tipoLista *lst, int inicio, int meio, int fim)
 			{
 				lst->vet[j+1] = lst->vet[j];
 				j--;
+				cont++;
 			}
 			
 			lst->vet[j+1] = aux;
 		}
 	}
-}*/
-/*int dividir(tipoLista *lst, int esq, int dir)
+	
+	return cont;
+}
+int dividir(tipoLista *lst, int esq, int dir)
 {
 	int aux, i, cont=esq;
-	
+		
 	for(i=esq+1; i <= dir; i++)
 	{
 		if(lst->vet[i] < lst->vet[esq])
@@ -173,6 +188,7 @@ void merge(tipoLista *lst, int inicio, int meio, int fim)
 			aux = lst->vet[i];
 			lst->vet[i] = lst->vet[cont];
 			lst->vet[cont] = aux;
+			lst->contador++;
 		}
 		
 	}
@@ -199,10 +215,10 @@ void quickSort(tipoLista *lst, int esq, int dir)
 		}
 	}
 			
-}*/
-/*void selectionSort(tipoLista *lst)
+}
+int selectionSort(tipoLista *lst)
 {
-	int menor,aux, i, j;
+	int menor,aux, i, j, cont = 0;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
@@ -213,7 +229,7 @@ void quickSort(tipoLista *lst, int esq, int dir)
 			menor = i;
 			for(j=i+1; j < lst->tam;j++)
 			{
-				if(lst->vet[menor]>lst->vet[j])
+				if(lst->vet[menor] > lst->vet[j])
 					menor=j;
 			}
 			if(i!=menor)
@@ -221,8 +237,11 @@ void quickSort(tipoLista *lst, int esq, int dir)
 				aux=lst->vet[i];
 				lst->vet[i]=lst->vet[menor];
 				lst->vet[menor]=aux;
+				cont++;
 			}
 		}
 	}
-}*/
+	
+	return cont;
+}
 #endif
