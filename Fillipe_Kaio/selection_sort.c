@@ -1,19 +1,63 @@
-void selection_sort(int* vet, int n) {
-	int pos, aux = 0, i;
+#ifndef sortFunctions_c
+#define sortFunctions_c
 
-	selection_c_cont++;
-	while (aux < n) {
-		selection_c_cont++;
-		pos = aux;
-		for (i = aux; i < n; i++) {
-			selection_c_cont++;
-			if (vet[i] < vet[pos]) {
-				pos = i;
-			}
-		}
-		swap(&vet[pos], &vet[aux]);
-		selection_s_cont++;
-		aux++;
-	}
+#include <stdio.h>
+#include <stdlib.h>
 
-} 
+#include "staticList.c"
+#include "randomValues.c"
+
+//Prototypes
+void selectionSort(list *ls);
+void swap(int *xp, int *yp);
+#endif
+
+//SELECTION SORT FUNCTION
+void selectionSort(list *ls)
+{
+    int i,j, min_pst;
+    
+    for ( i = 0; i < ls->size; i++) // 
+    {
+        //Searching for the minimum unsorted element
+        min_pst = i;
+        for ( j = i+1 ; j < ls->size; j++)
+        if (ls->array[j] < ls->array[min_pst] )
+            min_pst = j;
+        
+        //Swapping the minimum unsorted with the [] element
+        swap(&ls->array[min_pst], &ls->array[i]);
+    
+    }
+}
+
+//Swapping Function
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+/*--------------------------------------------------------------------*/
+
+int main(){
+    
+    list ls; int i;
+
+    runList(&ls,10);
+    getRandom(&ls);
+    //Output Unordered List
+    for ( i = 0; i < ls.size; i++)
+       printf("%d\n",ls.array[i]);
+    
+    printf("\n");
+    printf("\nTeste\n");
+
+    //Output ordered List 
+    selectionSort(&ls);
+    for ( i = 0; i < ls.size; i++)
+        printf("%d\n",ls.array[i]);
+
+    return 0;
+}
