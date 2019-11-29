@@ -9,6 +9,7 @@ typedef struct staticList
 {
     int *array;
     int size;
+    int cont;
 } list;
 
 
