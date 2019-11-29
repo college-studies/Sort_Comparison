@@ -10,20 +10,14 @@ int main()
 {
     list ls;
     ls.count = 0;
-    int i,j;
+    int i;
 
     runList(&ls, 10);
-
-    for (i=0,j=9;i<10;i++,j--)
-    {
-        ls.array[i] = j;
-        printf("%d\n", ls.array[i]);
-    }
-
+    getRandom(&ls);
     mergeSort(&ls, 0, ls.size);
     printf("Numero de trocas: %d\n",ls.count);
 
-    for (i=0;i<10;i++)
+    for (i=0;i<ls.size;i++)
     {
         printf("%d\n",ls.array[i]);
     }
@@ -43,14 +37,13 @@ int mergeSort (list *ls, int f,int b)
         mergeSort(ls, f, middle);
         mergeSort(ls, middle + 1, b);
         count = count + merge(ls, f, middle, b);
-        ls->count++;
     }
     return count;
 }
 
 int merge(list *ls, int f, int middle, int b)
 {
-    int *temp, aux1, aux2, size, i, j, k;
+    int *temp, aux1, aux2, size, i, j, k, flag;
     int b1 = 0, b2 = 0, count = 0; 
     
     size = b - f + 1;
@@ -61,6 +54,7 @@ int merge(list *ls, int f, int middle, int b)
 
     if(temp != NULL)
     {
+        flag = 1;
         for(i = 0; i < size; i++)
         {
             if (!b1 && !b2)
@@ -68,10 +62,16 @@ int merge(list *ls, int f, int middle, int b)
                 if(ls->array[aux1] < ls->array[aux2])
                 {
                     temp[i] = ls->array[aux1++];
+                    if(flag == 2)
+						ls->count++;
+					flag = 1;
                 }
                 else
                 {
                     temp[i] = ls->array[aux2++];
+                    if(flag == 1)
+						ls->count++;
+					flag = 2;
                 }
                 if(aux1 > middle)
                     b1 = 1;
@@ -93,6 +93,6 @@ int merge(list *ls, int f, int middle, int b)
         for(j=0, k = f; j < size; j++, k++)
 			ls->array[k] = temp[j];
     }
-    return count;
     free(temp);
+    return count;
 }

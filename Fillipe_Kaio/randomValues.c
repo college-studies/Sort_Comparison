@@ -11,11 +11,11 @@ void getRandom(list *ls)
 {
     int i=0,j, number, flag;
 
-    srand( (unsigned) i *time(NULL));
+    srand(time(NULL));
 
     for (i=0; i < ls->size; i++)
     {
-        number = rand()%999999;
+        number = rand()%100;
         flag = 0;
 
         if (number <= 0)
