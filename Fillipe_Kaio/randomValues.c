@@ -9,7 +9,7 @@
 
 void getRandom(list *ls)
 {
-    int i,j, number, flag;
+    int i=0,j, number, flag;
 
     srand( (unsigned) i *time(NULL));
 

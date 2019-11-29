@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<math.h>
 
 #include "staticList.c"
 #include "randomValues.c"
@@ -21,8 +20,9 @@ int main()
         printf("%d\n", ls.array[i]);
     }
 
-    mergeSort(&ls, 0, ls.size);
-
+    ls.cont = mergeSort(&ls, 0, ls.size);
+    printf("Teste\n");
+    
     for (i=0;i<10;i++)
     {
         printf("%d\n",ls.array[i]);
@@ -36,7 +36,6 @@ int mergeSort (list *ls, int f,int b)
     int middle, count = 0;
     if (b > f)
     {
-        printf("Teste\n");
         middle = ( (f + b)/2 );
         if (middle<0)
             middle *=(-1); 
@@ -54,6 +53,9 @@ int merge(list *ls, int f, int middle, int b)
     int b1 = 0, b2 = 0, count = 0; 
     
     size = b - f + 1;
+    aux1 = f;
+    aux2 = middle+1;
+
     temp = (int*) malloc (sizeof(int)*size);
 
     if(temp != NULL)
@@ -72,7 +74,7 @@ int merge(list *ls, int f, int middle, int b)
                 }
                 if(aux1 > middle)
                     b1 = 1;
-                if(aux2 > b);
+                if(aux2 > b)
                     b2 = 1;
             }
             else

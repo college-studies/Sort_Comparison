@@ -15,7 +15,6 @@ typedef struct staticList
 
 
 int runList(list *ls,int size){
-    int i;
     ls->size=size;
     ls->array = (int *) malloc(sizeof(int)*ls->size);
 
