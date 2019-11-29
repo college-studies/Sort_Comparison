@@ -15,7 +15,7 @@ void getRandom(list *ls)
 
     for (i=0; i < ls->size; i++)
     {
-        number = rand()%999999;
+        number = rand()%10;
         flag = 0;
 
         if (number <= 0)

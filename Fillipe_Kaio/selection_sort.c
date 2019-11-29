@@ -27,8 +27,10 @@ void selectionSort(list *ls)
         
         //Swapping the minimum unsorted with the [] element
         swap(&ls->array[min_pst], &ls->array[i]);
-    
+        ls->cont += 1;
     }
+
+
 }
 
 //Swapping Function
@@ -44,6 +46,7 @@ void swap(int *xp, int *yp)
 int main(){
     
     list ls; int i;
+    ls.cont = 0;
 
     runList(&ls,10);
     getRandom(&ls);

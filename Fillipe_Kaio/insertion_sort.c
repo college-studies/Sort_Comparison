@@ -27,14 +27,15 @@ void insertionSort(list *ls)
             j = j - 1;
         }
         ls->array[j+1] = key;
+        ls->cont += 1;
     }
 }
 
 int main(){
     
     list ls; int i;
-
-    runList(&ls,10);
+    ls.cont = 0;
+    runList(&ls,100);
     getRandom(&ls);
     //Output Unordered List
     for ( i = 0; i < ls.size; i++)

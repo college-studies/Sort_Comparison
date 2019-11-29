@@ -8,39 +8,61 @@
 #include "randomValues.c"
 
 //Prototypes
-void swap(int* a, int* b);
 int partition(list *ls, int low, int high);
 void quickSort(list *ls, int low, int high);
 
-#endif
-
-//Swapping elements
-void swap(int* a, int* b)
+int main()
 {
-    int t = *a;
-    *a = *b;
-    *b = t;
+    list ls;
+    int i;
+
+    runList(&ls,10);
+    getRandom(&ls);
+    for(i=0;i<ls.size;i++)
+    {
+       printf("%d\n",ls.array[i]);
+    }
+
+    printf("\n");
+    printf("\nTeste\n");
+    
+    quickSort(&ls,0,ls.size);
+    for(i=0;i<ls.size;i++)
+    {
+       printf("%d\n",ls.array[i]);
+    }    
+
+
+
+    return 0;
 }
+
 
 /*Recursive Function that takes last element as pivot and places the pivot 
 on its corrent position in sorted array, and places all smaler than pivot 
 to left of pivot and greaters to the right */
 int partition(list *ls, int low, int high)
 {
-    int pivot = ls->array[high]; //pivot
-    int i = (low - 1); //Smaller element index
-
-    for ( int j = low; j <= high; j++)
+    int pivot = ls->array[low]; //pivot
+    int i,aux,j;
+    i = low;
+    for ( j = low+1; j <= high; j++)
     {
         //If current element is smaller than pivot
         if (ls->array[j] < pivot)
         {
             i++; //increment index of smaller element
-            swap(&ls->array[i], &ls->array[j]);
+            aux = ls->array[j];
+            ls->array[j] = ls->array[i];
+            ls->array[i] = aux;
+            ls->cont++;
         }
     }
-    swap(&ls->array[i+1],&ls->array[high]);
-    return (i+1);
+	aux = ls->array[low];
+	ls->array[low] = ls->array[i];
+	ls->array[i] = aux;
+	
+	return i;
 }
 
 void quickSort(list *ls, int low, int high)
@@ -48,12 +70,12 @@ void quickSort(list *ls, int low, int high)
     //low = starting index & high = ending index
     if (low < high){
         // pi as partitioning index, arr[p] is in the right place   
-        int pi = partition (ls->array,low,high);
+        int pi = partition (ls,low,high);
 
         //Separately sort elements before and after partition
-        quickSort(ls->array, low, pi - 1);
-        quickSort(ls->array, pi + 1, high);
+        quickSort(ls, low, pi - 1);
+        quickSort(ls, pi + 1, high);
     }
 }
 
-
+#endif

@@ -9,7 +9,7 @@ int main()
 {
     list ls;
 
-    runList(&ls,1000);
+    runList(&ls,10);
     getRandom(&ls);
 
     printf("\n");

@@ -10,10 +10,22 @@ int main()
     int i;
     int j;
 
-    runList(&ls,10000);
+    runList(&ls,10);
     getRandom(&ls);
+    for(i=0;i<ls.size;i++)
+    {
+       printf("%d\n",ls.array[i]);
+    }
 
+    printf("\n");
+    printf("\nTeste\n");
+    
     bubbleSort(&ls);
+    for(i=0;i<ls.size;i++)
+    {
+       printf("%d\n",ls.array[i]);
+    }    
+    
 
     return 0;
 }
