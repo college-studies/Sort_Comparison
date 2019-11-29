@@ -9,7 +9,7 @@ int mergeSort(list *ls, int f, int b);
 int main()
 {
     list ls;
-    ls.cont = 0;
+    ls.count = 0;
     int i,j;
 
     runList(&ls, 10);
@@ -20,9 +20,9 @@ int main()
         printf("%d\n", ls.array[i]);
     }
 
-    ls.cont = mergeSort(&ls, 0, ls.size);
-    printf("Teste\n");
-    
+    mergeSort(&ls, 0, ls.size);
+    printf("Numero de trocas: %d\n",ls.count);
+
     for (i=0;i<10;i++)
     {
         printf("%d\n",ls.array[i]);
@@ -42,7 +42,8 @@ int mergeSort (list *ls, int f,int b)
     
         mergeSort(ls, f, middle);
         mergeSort(ls, middle + 1, b);
-        count += merge(ls, f, middle, b);
+        count = count + merge(ls, f, middle, b);
+        ls->count++;
     }
     return count;
 }
@@ -92,6 +93,6 @@ int merge(list *ls, int f, int middle, int b)
         for(j=0, k = f; j < size; j++, k++)
 			ls->array[k] = temp[j];
     }
-    free(temp);
     return count;
+    free(temp);
 }
