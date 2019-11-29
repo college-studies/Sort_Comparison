@@ -18,15 +18,20 @@ int selectionSort(tipoLista *ls);
 
 int bubbleSort(tipoLista *lst)
 {
-	int i, contador, aux;
-	long int cont = 0;
+	int troca, i, contador, aux;
+	unsigned long long int cont;
+	cont = 0;
 	
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
 	else
 	{
-		for(contador=1; contador <= lst->tras; contador++)
-		{
+		troca = 1;
+		while (troca) {
+			troca = 0;
+		
+		//for(contador=1; contador <= lst->tras; contador++)
+		//{
 			for(i=0; i <= lst->tras-1; i++)
 			{
 				if(lst->vet[i] > lst->vet[i+1])
@@ -35,6 +40,7 @@ int bubbleSort(tipoLista *lst)
 					lst->vet[i]=lst->vet[i+1];
 					lst->vet[i+1]=aux;
 					cont++;
+					troca=1;
 				}
 			}
 		}	
@@ -99,7 +105,7 @@ int mergeSort(tipoLista *lst, int inicio, int fim)
 int merge(tipoLista *lst, int inicio, int meio, int fim)
 {
 	int *temp, p1, p2, tamanho, i , j, k;
-	int fim1=0, fim2=0, cont=0;
+	int fim1=0, fim2=0, cont=0, chaveamento;
 	
 	tamanho = fim-inicio+1;
 	
@@ -110,6 +116,7 @@ int merge(tipoLista *lst, int inicio, int meio, int fim)
 	
 	if(temp != NULL)
 	{
+		chaveamento = 1;
 		for(i=0; i < tamanho; i++)
 		{
 			if(!fim1 && !fim2)
@@ -117,18 +124,22 @@ int merge(tipoLista *lst, int inicio, int meio, int fim)
 				if(lst->vet[p1] < lst->vet[p2])
 				{
 					temp[i] = lst->vet[p1++];
-					
+					if(chaveamento == 2)
+						cont++;
+					chaveamento = 1;
 				}
 				else
 				{
 					temp[i] = lst->vet[p2++];
+					if(chaveamento == 1)
+						cont++;
+					chaveamento = 2;
 					
 				}
 				if(p1 > meio)
 					fim1 = 1;
 				if(p2 > fim)
 					fim2 = 1;
-				
 			}
 			else
 			{
@@ -143,16 +154,20 @@ int merge(tipoLista *lst, int inicio, int meio, int fim)
 					
 				}
 			}
+
 		}		
 		for(j=0, k = inicio; j < tamanho; j++, k++)
 			lst->vet[k] = temp[j];
 	}
-	return cont;
 	free(temp);
+	return cont;
 }		
 int insertSort(tipoLista *lst)
 {
-	int i, j, aux, cont = 0;
+	int i, j, aux;
+	unsigned long long int cont;
+	
+	cont = 0;
 
 	if(listaVazia(lst))
 		printf("LISTA VAZIA\n");
@@ -237,7 +252,7 @@ int selectionSort(tipoLista *lst)
 				aux=lst->vet[i];
 				lst->vet[i]=lst->vet[menor];
 				lst->vet[menor]=aux;
-				cont++;
+				lst->contador++;
 			}
 		}
 	}
