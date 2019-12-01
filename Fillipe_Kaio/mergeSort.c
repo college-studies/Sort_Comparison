@@ -1,33 +1,27 @@
 #include<stdio.h>
 
 #include "staticList.c"
-#include "randomValues.c"
+#include "getValues.c"
 
 int merge(list *ls, int f, int middle, int b);
 int mergeSort(list *ls, int f, int b);
 
-int main()
+int main(int argc, char *argv[])
 {
     list ls;
-    ls.cont = 0;
-    int i,j;
+    ls.count = 0;
+    int i;
 
-    runList(&ls, 10);
+    ls.size = SIZE;
+    runList(&ls);
 
-    for (i=0,j=9;i<10;i++,j--)
-    {
-        ls.array[i] = j;
-        printf("%d\n", ls.array[i]);
-    }
+    const char *fileName = argv[1];
+    startList(&ls,fileName); 
 
-    ls.cont = mergeSort(&ls, 0, ls.size);
-    printf("Teste\n");
+    mergeSort(&ls, 0, ls.size);
     
-    for (i=0;i<10;i++)
-    {
-        printf("%d\n",ls.array[i]);
-    }
-
+    printf("Quantidade de trocas: %d\n",ls.count);
+    
     return 0;
 }
 
@@ -42,15 +36,15 @@ int mergeSort (list *ls, int f,int b)
     
         mergeSort(ls, f, middle);
         mergeSort(ls, middle + 1, b);
-        count += merge(ls, f, middle, b);
+        merge(ls, f, middle, b);
     }
     return count;
 }
 
 int merge(list *ls, int f, int middle, int b)
 {
-    int *temp, aux1, aux2, size, i, j, k;
-    int b1 = 0, b2 = 0, count = 0; 
+    int *temp, aux1, aux2, size, i, j, k, flag;
+    int b1 = 0, b2 = 0; 
     
     size = b - f + 1;
     aux1 = f;
@@ -60,6 +54,7 @@ int merge(list *ls, int f, int middle, int b)
 
     if(temp != NULL)
     {
+        flag = 1;
         for(i = 0; i < size; i++)
         {
             if (!b1 && !b2)
@@ -67,10 +62,16 @@ int merge(list *ls, int f, int middle, int b)
                 if(ls->array[aux1] < ls->array[aux2])
                 {
                     temp[i] = ls->array[aux1++];
+                    if (flag == 2)
+                        ls->count++;
+                    flag = 1;
                 }
                 else
                 {
                     temp[i] = ls->array[aux2++];
+                    if (flag == 1)
+                        ls->count++;
+                    flag = 2;
                 }
                 if(aux1 > middle)
                     b1 = 1;
@@ -93,5 +94,5 @@ int merge(list *ls, int f, int middle, int b)
 			ls->array[k] = temp[j];
     }
     free(temp);
-    return count;
+    return 1;
 }

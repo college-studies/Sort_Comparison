@@ -1,20 +1,25 @@
 #include<stdio.h>
 
 #include "staticList.c"
-#include "randomValues.c"
+#include "getValues.c"
 
 int shellSort(list *ls);
 
-int main()
+int main(int agrc, char *argv[])
 {
     list ls;
+    ls.count = 0;
 
-    runList(&ls,10);
-    getRandom(&ls);
+    ls.size = SIZE;
+    runList(&ls);
 
-    printf("\n");
-    
+    const char *fileName = argv[1];
+    startList(&ls,fileName); 
+
     shellSort(&ls);
+
+    printf("Numero de trocas = %d\n",ls.count);
+
     return 0;
 }
 
@@ -23,7 +28,7 @@ int shellSort(list *ls)
 {
     if(ls->array!=NULL)
     {
-        int i, j, k, valueAux, gap, count = 0;
+        int i, j, k, valueAux, gap;
         
         for (gap = ls->size/2; gap > 0; gap /=2)
         {
@@ -43,14 +48,13 @@ int shellSort(list *ls)
                         ls->array[j] = ls->array[k];
                         ls->array[k] = valueAux;
                         j -= gap;
-                        count ++;
+                        ls->count ++;
                     }
 
                 }
                             
             }
         }
-        printf("Numero de trocas = %d\n",count);
     }
     return 0;
 }

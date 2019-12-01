@@ -9,16 +9,16 @@ typedef struct staticList
 {
     int *array;
     int size;
-    int cont;
+    int count;
 } list;
 
 
 
-int runList(list *ls,int size){
-    ls->size=size;
+int runList(list *ls)
+{
     ls->array = (int *) malloc(sizeof(int)*ls->size);
 
-    return 0;
+    return 1;
 }
 
 #endif

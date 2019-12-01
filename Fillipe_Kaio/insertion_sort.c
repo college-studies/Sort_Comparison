@@ -1,16 +1,31 @@
-#ifndef sortFunctions_c
-#define sortFunctions_c
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 #include "staticList.c"
-#include "randomValues.c"
+#include "getValues.c"
 
 //Prototypes
 void insertionSort(list *ls);
-#endif
+
+int main(int agrc, char *argv[]){
+    
+    list ls; int i;
+    ls.count = 0;
+    
+    ls.size = SIZE;
+    runList(&ls);
+
+    const char *fileName = argv[1];
+    startList(&ls,fileName); 
+
+    //Output ordered List 
+    insertionSort(&ls);
+    
+    printf("Numero de trocas: %d\n", ls.count);
+
+    return 0;
+}
 
 void insertionSort(list *ls)
 {
@@ -27,27 +42,6 @@ void insertionSort(list *ls)
             j = j - 1;
         }
         ls->array[j+1] = key;
-        ls->cont += 1;
+        ls->count += 1;
     }
-}
-
-int main(){
-    
-    list ls; int i;
-    ls.cont = 0;
-    runList(&ls,100);
-    getRandom(&ls);
-    //Output Unordered List
-    for ( i = 0; i < ls.size; i++)
-       printf("%d\n",ls.array[i]);
-    
-    printf("\n");
-    printf("\nTeste\n");
-
-    //Output ordered List 
-    insertionSort(&ls);
-    for ( i = 0; i < ls.size; i++)
-        printf("%d\n",ls.array[i]);
-
-    return 0;
 }
