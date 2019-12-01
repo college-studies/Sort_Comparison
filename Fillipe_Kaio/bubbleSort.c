@@ -1,31 +1,22 @@
 #include <stdio.h>
+
 #include "staticList.c"
-#include "randomValues.c"
+#include "getValues.c"
 
 int bubbleSort(list *ls);
 
-int main()
+int main(int agrc, char *argv[])
 {
     list ls;
-    int i;
-    int j;
+    ls.size = SIZE;
+    runList(&ls);
 
-    runList(&ls,10);
-    getRandom(&ls);
-    for(i=0;i<ls.size;i++)
-    {
-       printf("%d\n",ls.array[i]);
-    }
+    const char *fileName = argv[1];
+    startList(&ls,fileName); 
 
-    printf("\n");
-    printf("\nTeste\n");
-    
     bubbleSort(&ls);
-    for(i=0;i<ls.size;i++)
-    {
-       printf("%d\n",ls.array[i]);
-    }    
     
+    printf("Trocas realizadas: %d\n",ls.count);
 
     return 0;
 }
@@ -34,7 +25,7 @@ int bubbleSort(list *ls)
 {
     if(ls->array!=NULL)
     {
-        int i, j, valueAux, count = 0;
+        int i, j, valueAux;
         for(i = 0; i < ls->size-1; i++)
         {
             for (j = 0; j < ls->size-i-1; j++)
@@ -44,11 +35,10 @@ int bubbleSort(list *ls)
                     valueAux = ls->array[j];
                     ls->array[j] = ls->array[j+1];
                     ls->array[j+1] = valueAux;
-                    count++;
+                    ls->count++;
                 }
             }
         }
-        printf("Trocas realizadas: %d\n",count);
     }
 
     return 0;

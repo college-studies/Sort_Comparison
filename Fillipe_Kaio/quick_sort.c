@@ -5,28 +5,33 @@
 #include <stdio.h>
 
 #include "staticList.c"
-#include "randomValues.c"
+#include "getValues.c"
 
 //Prototypes
 int partition(list *ls, int low, int high);
 void quickSort(list *ls, int low, int high);
 
-int main()
+int main(int agrc, char *argv[])
 {
     list ls;
     int i;
+    ls.count = 0;
 
-    runList(&ls,10);
-    getRandom(&ls);
+    ls.size = SIZE;
+    runList(&ls);
+
+    const char *fileName = argv[1];
+    startList(&ls,fileName); 
+
     for(i=0;i<ls.size;i++)
     {
        printf("%d\n",ls.array[i]);
     }
 
     printf("\n");
-    printf("\nTeste\n");
-    
+
     quickSort(&ls,0,ls.size);
+    printf("\nNumero de trocas: %d\n",ls.count);
     for(i=0;i<ls.size;i++)
     {
        printf("%d\n",ls.array[i]);
@@ -55,7 +60,7 @@ int partition(list *ls, int low, int high)
             aux = ls->array[j];
             ls->array[j] = ls->array[i];
             ls->array[i] = aux;
-            ls->cont++;
+            ls->count++;
         }
     }
 	aux = ls->array[low];
