@@ -34,7 +34,7 @@ int main(int agrc, char *argv[])
 
     return 0;
 }
-
+//
 int bubbleSort(list *ls)
 {
     if(ls->array!=NULL)
