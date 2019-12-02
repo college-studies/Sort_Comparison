@@ -3,11 +3,20 @@
 #include "staticList.c"
 #include "getValues.c"
 
+#include <sys/times.h> 
+#include <sys/types.h> 
+#include <unistd.h> 
+
 int merge(list *ls, int f, int middle, int b);
 int mergeSort(list *ls, int f, int b);
 
 int main(int argc, char *argv[])
 {
+	
+	clock_t tt;
+	struct tms time; 
+    int tics_per_second; 
+	
     list ls;
     ls.count = 0;
     int i;
@@ -21,6 +30,8 @@ int main(int argc, char *argv[])
     mergeSort(&ls, 0, ls.size);
     
     printf("Quantidade de trocas: %d\n",ls.count);
+	tt = times(&time);
+    printf("\nRUN TIME: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
     
     return 0;
 }
