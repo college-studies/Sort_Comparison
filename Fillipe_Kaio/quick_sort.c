@@ -7,12 +7,23 @@
 #include "staticList.c"
 #include "getValues.c"
 
+#include <sys/times.h> 
+#include <sys/types.h> 
+#include <unistd.h> 
+
 //Prototypes
 int partition(list *ls, int low, int high);
 void quickSort(list *ls, int low, int high);
 
 int main(int agrc, char *argv[])
 {
+	
+	clock_t tt;
+	struct tms time; 
+    int tics_per_second; 
+
+    tics_per_second = sysconf(_SC_CLK_TCK);
+    
     list ls;
     int i;
     ls.count = 0;
@@ -22,21 +33,12 @@ int main(int agrc, char *argv[])
 
     const char *fileName = argv[1];
     startList(&ls,fileName); 
-
-    for(i=0;i<ls.size;i++)
-    {
-       printf("%d\n",ls.array[i]);
-    }
-
-    printf("\n");
-
     quickSort(&ls,0,ls.size);
+	
     printf("\nNumero de trocas: %d\n",ls.count);
-    for(i=0;i<ls.size;i++)
-    {
-       printf("%d\n",ls.array[i]);
-    }    
-
+	tt = times(&time);
+    printf("\nRUN TIME: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
+    
 
 
     return 0;
