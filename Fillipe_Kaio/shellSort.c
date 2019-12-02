@@ -14,7 +14,7 @@ int main(int agrc, char *argv[])
 {
     
     clock_t tt;
-	struct tms time; 
+	struct tms time
     int tics_per_second; 
 
     tics_per_second = sysconf(_SC_CLK_TCK);
