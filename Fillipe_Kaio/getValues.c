@@ -8,7 +8,7 @@
 
 #include "staticList.c"
 
-#define SIZE 10
+#define SIZE 1000
 
 int startList(list *ls,const char *fileName)
 {
@@ -22,7 +22,6 @@ int startList(list *ls,const char *fileName)
         printf("Opening file error");
         return 0;
     }
-    printf("Teste\n");
     while (EOF != fscanf(file, "%d", &value))
     {
         ls->array[i] = value;

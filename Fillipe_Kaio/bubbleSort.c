@@ -29,7 +29,6 @@ int main(int agrc, char *argv[])
     
     printf("Trocas realizadas: %d\n",ls.count);
     tt = times(&time);
-	printf("Clock = %.1f\n", (float)tt);	
     printf("\nRUN TIME: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
 
     return 0;

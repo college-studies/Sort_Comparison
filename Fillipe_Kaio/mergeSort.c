@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
 	clock_t tt;
 	struct tms time; 
     int tics_per_second; 
+
+    tics_per_second = sysconf(_SC_CLK_TCK);
 	
     list ls;
     ls.count = 0;

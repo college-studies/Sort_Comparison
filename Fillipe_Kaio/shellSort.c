@@ -14,7 +14,7 @@ int main(int agrc, char *argv[])
 {
     
     clock_t tt;
-	struct tms time
+	struct tms time;
     int tics_per_second; 
 
     tics_per_second = sysconf(_SC_CLK_TCK);
@@ -48,25 +48,17 @@ int shellSort(list *ls)
         {
             for (i = gap; i < ls->size; i++)
             {   
-                j=i-gap;
-
-                while (j >=0)
-                {
-                    k=j+gap;
-                    
-                    if (ls->array[j] < ls->array[k])
-                        j --;
-                    else
-                    {                 
-                        valueAux = ls->array[j];
-                        ls->array[j] = ls->array[k];
-                        ls->array[k] = valueAux;
-                        j -= gap;
-                        ls->count ++;
-                    }
-
-                }
-                            
+                int temp = ls->array[i]; 
+  
+                // shift earlier gap-sorted elements up until the correct  
+                // location for a[i] is found 
+                int j;             
+                for (j = i; j >= gap && ls->array[j - gap] > temp; j -= gap) 
+                    ls->array[j] = ls->array[j - gap]; 
+                    ls->count++;
+                //  put temp (the original a[i]) in its correct location 
+                ls->array[j] = temp;
+                                
             }
         }
     }
