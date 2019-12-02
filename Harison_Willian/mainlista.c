@@ -26,7 +26,8 @@ int main(int argc, char *argv[])
 
 	tipoLista lista;
 	FILE *arquivo;
-	int num, qtdTroca = 0;
+	int num; 
+	unsigned long long int qtdTroca = 0;
 	
 	lista.contador = 0;
 	
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
 	//}
 			
 	
-	//printf("\nimprimindo a lista\n");
+	//printf("\nimprimindo a lista\n");	
 	
 	//imprime(&lista);
 	
@@ -62,14 +63,14 @@ int main(int argc, char *argv[])
 	printf("Clock = %f\n", (float)tt);	
     	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
-	/*qtdTroca = shellSort(&lista, 1000); // contador funcionando
+	/*qtdTroca = shellSort(&lista, 100000); // contador funcionando
 
     	tt = times(&time);
 	printf("Clock = %f\n", (float)tt);	
     	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
 	
-	qtdTroca = mergeSort(&lista, 0, 10);
+	qtdTroca = mergeSort(&lista, 0, 10); 
 	tt = times(&time);
 	printf("Clock = %f\n", (float)tt);	
     	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
 	printf("Clock = %f\n", (float)tt);	
     	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
-	/*quickSort(&lista, 0, 1000); // contador funcionou
+	/*quickSort(&lista, 0, 100000); // contador funcionou
 	tt = times(&time);
 	printf("Clock = %f\n", (float)tt);	
     	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
@@ -89,15 +90,15 @@ int main(int argc, char *argv[])
 	printf("Clock = %f\n", (float)tt);	
     	printf("\nTempo de uso do processador pelo processo: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );*/
 	
-	printf("\nIMPRIMINDO LISTA ORDENADA\n");
+	/*printf("\nIMPRIMINDO LISTA ORDENADA\n");
 	
 	imprime(&lista);	
 	
-	printf("\n");
+	printf("\n");*/
 	
-	printf("QUANTIDADE DE TROCA: %d\n", qtdTroca );
+	printf("QUANTIDADE DE TROCA: %llu\n", qtdTroca );
 	
-	//printf("QUANTIDADE DE TROCA: %d\n", lista.contador ); // MOSTRAR NÚMERO DE TROCAS DO QUICKSORT
+	//printf("QUANTIDADE DE TROCA: %d\n", lista.contador ); // MOSTRAR NÚMERO DE TROCAS DO QUICKSORT 
 	
 	return 1;
 }	
