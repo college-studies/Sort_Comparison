@@ -3,10 +3,21 @@
 #include "staticList.c"
 #include "getValues.c"
 
+#include <sys/times.h> 
+#include <sys/types.h> 
+#include <unistd.h> 
+
 int bubbleSort(list *ls);
 
 int main(int agrc, char *argv[])
 {
+    
+    clock_t tt;
+	struct tms time; 
+    int tics_per_second; 
+
+    tics_per_second = sysconf(_SC_CLK_TCK);
+    
     list ls;
     ls.size = SIZE;
     runList(&ls);
@@ -17,6 +28,9 @@ int main(int agrc, char *argv[])
     bubbleSort(&ls);
     
     printf("Trocas realizadas: %d\n",ls.count);
+    tt = times(&time);
+	printf("Clock = %.1f\n", (float)tt);	
+    printf("\nRUN TIME: %f segundos\n", ( (double)time.tms_utime) / tics_per_second );
 
     return 0;
 }
